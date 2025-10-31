@@ -1,6 +1,7 @@
 {
   "name": "growthyari_accelarator",
   "version": "1.0.0",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "lucide-react": "^0.552.0",
