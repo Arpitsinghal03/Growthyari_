@@ -1,7 +1,6 @@
 {
   "name": "growthyari_accelarator",
   "version": "1.0.0",
-  "homepage": "https://arpitsinghal03.github.io/growthyari",
   "private": true,
   "dependencies": {
     "lucide-react": "^0.552.0",
