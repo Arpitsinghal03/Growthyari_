@@ -30,8 +30,8 @@ function Navbar({ currentPage, setCurrentPage, mobileMenuOpen, setMobileMenuOpen
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'program', label: 'Program' },
-    { id: 'mentors', label: 'Mentors' },
-    { id: 'investors', label: 'Investors' },
+    { id: 'partners', label: 'Partners' },
+    { id: 'events', label: 'Events' },
     { id: 'community', label: 'Community' },
   ];
 

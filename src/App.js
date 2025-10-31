@@ -4,8 +4,8 @@ import Footer from './components/Footer.js';
 import AIChatBox from './components/AIChatBox.js';
 import HomePage from './pages/HomePage.js';
 import ProgramPage from './pages/ProgramPage.js';
-import MentorsPage from './pages/MentorsPage.js';
-import InvestorsPage from './pages/InvestorsPage.js';
+import EventsPage from './pages/EventsPage.js';
+import PartnersPage from './pages/PartnersPage.js';
 import CommunityPage from './pages/CommunityPage.js';
 import DashboardPage from './pages/DashboardPage.js';
 import LoginPage from './pages/LoginPage.js';
@@ -21,8 +21,8 @@ export default function App() {
   const pages = {
     home: <HomePage setCurrentPage={setCurrentPage} />,
     program: <ProgramPage setCurrentPage={setCurrentPage} />,
-    mentors: <MentorsPage />,
-    investors: <InvestorsPage />,
+    partners: <PartnersPage setCurrentPage={setCurrentPage} />,
+    events: <EventsPage setCurrentPage={setCurrentPage} />,
     community: <CommunityPage setCurrentPage={setCurrentPage} />,
     dashboard: <DashboardPage setShowAIChat={setShowAIChat} />,
     login: <LoginPage setUser={setUser} setCurrentPage={setCurrentPage} />,
