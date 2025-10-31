@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 // Custom hook for window size
 function useWindowSize() {
@@ -74,14 +74,23 @@ function Navbar({ currentPage, setCurrentPage, mobileMenuOpen, setMobileMenuOpen
           >
             <div style={{
               background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
-              padding: '10px',
+              padding: '8px',
               borderRadius: '12px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 4px 15px rgba(61, 117, 81, 0.3)'
             }}>
-              <Rocket style={{ width: '22px', height: '22px', color: 'white' }} />
+              <img 
+                src="/logo.jpg" 
+                alt="GrowthYari Logo"
+                style={{
+                  width: '26px',
+                  height: '26px',
+                  objectFit: 'contain',
+                  borderRadius: '6px'
+                }}
+              />
             </div>
             <span style={{
               fontSize: '1.4rem',
