@@ -1,25 +1,173 @@
 import React, { useState } from 'react';
-import { Rocket, Check, Users, TrendingUp, Award, Zap } from 'lucide-react';
+import { Rocket, Check, Users, TrendingUp, Award, Zap, Eye, EyeOff, AlertCircle, Mail, Lock, User, Building } from 'lucide-react';
 
 function LoginPage({ setUser, setCurrentPage }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    startupName: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Mock login - in real app, this would validate credentials
-    setUser({
-      name: "Founder Name",
-      email: "founder@startup.com",
-      role: "founder"
-    });
-    setCurrentPage('dashboard');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!isLogin && !formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    if (!isLogin && !formData.startupName.trim()) {
+      newErrors.startupName = 'Startup name is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      setUser({
+        name: formData.name || "Founder Name",
+        email: formData.email,
+        role: "founder",
+        startupName: formData.startupName
+      });
+      setIsLoading(false);
+      setCurrentPage('dashboard');
+    }, 1500);
+  };
+
+  const InputField = ({ label, type, name, placeholder, icon: Icon, value }) => (
+    <div>
+      <label style={{ 
+        display: 'block', 
+        fontSize: '0.95rem', 
+        fontWeight: '600', 
+        color: '#2C5F3F', 
+        marginBottom: '0.5rem' 
+      }}>
+        {label}
+      </label>
+      <div style={{ position: 'relative' }}>
+        <div style={{
+          position: 'absolute',
+          left: '1rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          color: '#5A8F6A'
+        }}>
+          <Icon size={20} />
+        </div>
+        <input
+          type={type === 'password' && showPassword ? 'text' : type}
+          name={name}
+          value={value}
+          onChange={handleChange}
+          required
+          style={{
+            width: '100%',
+            padding: '0.875rem 1rem 0.875rem 3rem',
+            border: `2px solid ${errors[name] ? '#ef4444' : 'rgba(93, 217, 193, 0.3)'}`,
+            borderRadius: '12px',
+            outline: 'none',
+            transition: 'all 0.2s',
+            fontSize: '1rem',
+            color: '#2C5F3F',
+            background: 'rgba(93, 217, 193, 0.05)'
+          }}
+          onFocus={(e) => {
+            e.target.style.borderColor = errors[name] ? '#ef4444' : '#3D7551';
+            e.target.style.background = 'white';
+            e.target.style.boxShadow = `0 0 0 3px ${errors[name] ? 'rgba(239, 68, 68, 0.1)' : 'rgba(61, 117, 81, 0.1)'}`;
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = errors[name] ? '#ef4444' : 'rgba(93, 217, 193, 0.3)';
+            e.target.style.background = 'rgba(93, 217, 193, 0.05)';
+            e.target.style.boxShadow = 'none';
+          }}
+          placeholder={placeholder}
+        />
+        {type === 'password' && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: 'absolute',
+              right: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#5A8F6A',
+              padding: 0
+            }}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        )}
+      </div>
+      {errors[name] && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          marginTop: '0.5rem',
+          color: '#ef4444',
+          fontSize: '0.85rem'
+        }}>
+          <AlertCircle size={14} />
+          <span>{errors[name]}</span>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div style={{ 
       minHeight: '100vh', 
       display: 'flex',
-      background: '#F5F9F3'
+      background: '#FAFBFC'
     }}>
       {/* Left Side - Content Section */}
       <div style={{
@@ -61,8 +209,11 @@ function LoginPage({ setUser, setCurrentPage }) {
             display: 'flex', 
             alignItems: 'center', 
             gap: '1rem',
-            marginBottom: '3rem'
-          }}>
+            marginBottom: '3rem',
+            cursor: 'pointer'
+          }}
+          onClick={() => setCurrentPage('home')}
+          >
             <div style={{
               background: 'rgba(93, 217, 193, 0.2)',
               padding: '1rem',
@@ -76,7 +227,7 @@ function LoginPage({ setUser, setCurrentPage }) {
                 GrowthYari
               </div>
               <div style={{ fontSize: '0.95rem', opacity: 0.9 }}>
-                Accelerator Program
+                Student Founder Ecosystem
               </div>
             </div>
           </div>
@@ -89,7 +240,7 @@ function LoginPage({ setUser, setCurrentPage }) {
             lineHeight: 1.2,
             letterSpacing: '-1px'
           }}>
-            Transform Your Startup in 8 Weeks
+            {isLogin ? 'Welcome Back!' : 'Start Your Journey'}
           </h1>
 
           <p style={{ 
@@ -98,16 +249,18 @@ function LoginPage({ setUser, setCurrentPage }) {
             lineHeight: 1.7,
             marginBottom: '3rem'
           }}>
-            Join India&apos;s most selective founder accelerator. Get mentorship, investor intros, and a lifetime community of ambitious builders.
+            {isLogin 
+              ? 'Sign in to access your dashboard, connect with mentors, and track your startup progress.'
+              : 'Join India\'s most selective student founder accelerator. Get mentorship, investor intros, and a community of ambitious builders.'}
           </p>
 
           {/* Benefits List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '3rem' }}>
             {[
-              { icon: <Users size={20} />, text: '50+ Expert Mentors' },
-              { icon: <TrendingUp size={20} />, text: '10+ Warm Investor Intros' },
-              { icon: <Award size={20} />, text: 'Lifetime Community Access' },
-              { icon: <Zap size={20} />, text: 'Money-Back Guarantee' }
+              { icon: <Users size={20} />, text: 'Vetted Student Founders' },
+              { icon: <TrendingUp size={20} />, text: 'Weekly Workshops & Meetups' },
+              { icon: <Award size={20} />, text: 'Warm Investor Intros' },
+              { icon: <Zap size={20} />, text: '8-Week Transformation' }
             ].map((benefit, i) => (
               <div key={i} style={{ 
                 display: 'flex', 
@@ -131,31 +284,40 @@ function LoginPage({ setUser, setCurrentPage }) {
             ))}
           </div>
 
-          {/* Stats */}
+          {/* Testimonial */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '2rem',
-            padding: '2rem',
+            padding: '1.5rem',
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(10px)',
             borderRadius: '15px',
             border: '1px solid rgba(255, 255, 255, 0.15)'
           }}>
-            {[
-              { value: '30K+', label: 'Members' },
-              { value: '₹500Cr+', label: 'Raised' },
-              { value: '4', label: 'Cities' }
-            ].map((stat, i) => (
-              <div key={i} style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '1.75rem', fontWeight: 'bold', marginBottom: '0.25rem' }}>
-                  {stat.value}
-                </div>
-                <div style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-                  {stat.label}
-                </div>
+            <p style={{
+              fontSize: '1rem',
+              fontStyle: 'italic',
+              marginBottom: '1rem',
+              lineHeight: 1.6
+            }}>
+              "GrowthYari helped me find co-founders, validate my idea, and get my first investor intro. The community is incredible!"
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #5DD9C1, #FFB6D9)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold'
+              }}>
+                R
               </div>
-            ))}
+              <div>
+                <div style={{ fontWeight: '600', fontSize: '0.95rem' }}>Rahul Kumar</div>
+                <div style={{ fontSize: '0.85rem', opacity: 0.85 }}>Founder, TechStart</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -181,178 +343,66 @@ function LoginPage({ setUser, setCurrentPage }) {
               marginBottom: '0.75rem',
               color: '#2C5F3F'
             }}>
-              {isLogin ? 'Welcome Back' : 'Start Your Journey'}
+              {isLogin ? 'Sign In' : 'Apply Now'}
             </h2>
             <p style={{ 
               color: '#5A8F6A',
               fontSize: '1.05rem'
             }}>
               {isLogin 
-                ? 'Sign in to access your founder dashboard' 
-                : 'Apply for the next cohort and transform your startup'}
+                ? 'Access your founder dashboard' 
+                : 'Start your 8-week transformation'}
             </p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {!isLogin && (
-              <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.95rem', 
-                  fontWeight: '600', 
-                  color: '#2C5F3F', 
-                  marginBottom: '0.5rem' 
-                }}>
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '0.875rem 1rem',
-                    border: '2px solid rgba(93, 217, 193, 0.3)',
-                    borderRadius: '12px',
-                    outline: 'none',
-                    transition: 'all 0.2s',
-                    fontSize: '1rem',
-                    color: '#2C5F3F',
-                    background: 'rgba(93, 217, 193, 0.05)'
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = '#3D7551';
-                    e.target.style.background = 'white';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(61, 117, 81, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(93, 217, 193, 0.3)';
-                    e.target.style.background = 'rgba(93, 217, 193, 0.05)';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                  placeholder="Enter your full name"
-                />
-              </div>
+              <InputField
+                label="Full Name"
+                type="text"
+                name="name"
+                placeholder="Enter your full name"
+                icon={User}
+                value={formData.name}
+              />
             )}
             
-            <div>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.95rem', 
-                fontWeight: '600', 
-                color: '#2C5F3F', 
-                marginBottom: '0.5rem' 
-              }}>
-                Email Address
-              </label>
-              <input
-                type="email"
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.875rem 1rem',
-                  border: '2px solid rgba(93, 217, 193, 0.3)',
-                  borderRadius: '12px',
-                  outline: 'none',
-                  transition: 'all 0.2s',
-                  fontSize: '1rem',
-                  color: '#2C5F3F',
-                  background: 'rgba(93, 217, 193, 0.05)'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#3D7551';
-                  e.target.style.background = 'white';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(61, 117, 81, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = 'rgba(93, 217, 193, 0.3)';
-                  e.target.style.background = 'rgba(93, 217, 193, 0.05)';
-                  e.target.style.boxShadow = 'none';
-                }}
-                placeholder="you@startup.com"
-              />
-            </div>
+            <InputField
+              label="Email Address"
+              type="email"
+              name="email"
+              placeholder="you@startup.com"
+              icon={Mail}
+              value={formData.email}
+            />
 
-            <div>
-              <label style={{ 
-                display: 'block', 
-                fontSize: '0.95rem', 
-                fontWeight: '600', 
-                color: '#2C5F3F', 
-                marginBottom: '0.5rem' 
-              }}>
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.875rem 1rem',
-                  border: '2px solid rgba(93, 217, 193, 0.3)',
-                  borderRadius: '12px',
-                  outline: 'none',
-                  transition: 'all 0.2s',
-                  fontSize: '1rem',
-                  color: '#2C5F3F',
-                  background: 'rgba(93, 217, 193, 0.05)'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#3D7551';
-                  e.target.style.background = 'white';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(61, 117, 81, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = 'rgba(93, 217, 193, 0.3)';
-                  e.target.style.background = 'rgba(93, 217, 193, 0.05)';
-                  e.target.style.boxShadow = 'none';
-                }}
-                placeholder="••••••••"
-              />
-            </div>
+            <InputField
+              label="Password"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              icon={Lock}
+              value={formData.password}
+            />
 
             {!isLogin && (
-              <div>
-                <label style={{ 
-                  display: 'block', 
-                  fontSize: '0.95rem', 
-                  fontWeight: '600', 
-                  color: '#2C5F3F', 
-                  marginBottom: '0.5rem' 
-                }}>
-                  Startup Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: '0.875rem 1rem',
-                    border: '2px solid rgba(93, 217, 193, 0.3)',
-                    borderRadius: '12px',
-                    outline: 'none',
-                    transition: 'all 0.2s',
-                    fontSize: '1rem',
-                    color: '#2C5F3F',
-                    background: 'rgba(93, 217, 193, 0.05)'
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = '#3D7551';
-                    e.target.style.background = 'white';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(61, 117, 81, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(93, 217, 193, 0.3)';
-                    e.target.style.background = 'rgba(93, 217, 193, 0.05)';
-                    e.target.style.boxShadow = 'none';
-                  }}
-                  placeholder="Your startup name"
-                />
-              </div>
+              <InputField
+                label="Startup Name"
+                type="text"
+                name="startupName"
+                placeholder="Your startup name"
+                icon={Building}
+                value={formData.startupName}
+              />
             )}
 
             {isLogin && (
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                  <input type="checkbox" style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  <span style={{ fontSize: '0.9rem', color: '#5A8F6A' }}>Remember me</span>
+                </label>
                 <button
                   type="button"
                   style={{
@@ -374,30 +424,53 @@ function LoginPage({ setUser, setCurrentPage }) {
 
             <button
               type="submit"
+              disabled={isLoading}
               style={{
                 width: '100%',
-                background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
+                background: isLoading ? '#5A8F6A' : 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
                 color: 'white',
                 padding: '1rem 0',
                 borderRadius: '12px',
                 fontWeight: '700',
                 fontSize: '1.05rem',
                 border: 'none',
-                cursor: 'pointer',
+                cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s',
                 boxShadow: '0 8px 20px rgba(61, 117, 81, 0.3)',
-                marginTop: '0.5rem'
+                marginTop: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem'
               }}
               onMouseOver={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 12px 30px rgba(61, 117, 81, 0.4)';
+                if (!isLoading) {
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 12px 30px rgba(61, 117, 81, 0.4)';
+                }
               }}
               onMouseOut={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 8px 20px rgba(61, 117, 81, 0.3)';
+                if (!isLoading) {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 8px 20px rgba(61, 117, 81, 0.3)';
+                }
               }}
             >
-              {isLogin ? 'Sign In to Dashboard' : 'Apply to Accelerator'}
+              {isLoading ? (
+                <>
+                  <div style={{
+                    width: '20px',
+                    height: '20px',
+                    border: '2px solid white',
+                    borderTopColor: 'transparent',
+                    borderRadius: '50%',
+                    animation: 'spin 0.8s linear infinite'
+                  }}></div>
+                  Processing...
+                </>
+              ) : (
+                isLogin ? 'Sign In to Dashboard' : 'Apply to Accelerator'
+              )}
             </button>
           </form>
 
@@ -419,7 +492,11 @@ function LoginPage({ setUser, setCurrentPage }) {
               {isLogin ? "Don't have an account?" : 'Already have an account?'}
             </p>
             <button
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setErrors({});
+                setFormData({ name: '', email: '', password: '', startupName: '' });
+              }}
               style={{
                 color: '#3D7551',
                 fontWeight: '600',
@@ -457,23 +534,29 @@ function LoginPage({ setUser, setCurrentPage }) {
               <p style={{ 
                 fontSize: '0.9rem', 
                 color: '#2C5F3F',
-                fontWeight: '500'
+                fontWeight: '500',
+                lineHeight: 1.6
               }}>
-                🎯 <strong>Results Guaranteed:</strong> Refund if no 10 founder or 3 investor intros in 8 weeks
+                <Check size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '0.5rem', color: '#3D7551' }} />
+                <strong>Results Guaranteed:</strong> 100% refund if goals not met in 8 weeks
               </p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Responsive Mobile View */}
+      {/* Responsive Mobile View & Animations */}
       <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 968px) {
-          div:first-child {
-            flex-direction: column;
+          body > div > div:first-child {
+            flex-direction: column !important;
           }
-          div:first-child > div:first-child {
-            padding: 3rem 2rem;
+          body > div > div:first-child > div:first-child {
+            padding: 3rem 2rem !important;
           }
         }
       `}</style>

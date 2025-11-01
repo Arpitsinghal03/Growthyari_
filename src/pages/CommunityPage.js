@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Calendar, MessageCircle, Check, Users, MapPin, Clock, Zap, Heart, Award, TrendingUp, Globe, Rocket, Briefcase } from 'lucide-react';
+import { Check, Users, MapPin, TrendingUp, MessageCircle, Globe, Rocket, Briefcase, Heart, MessageCircleMore, ArrowRight, Zap } from 'lucide-react';
 
 function CommunityPage({ setCurrentPage }) {
   const [selectedCity, setSelectedCity] = useState('All');
+  const whatsappLink = 'https://chat.whatsapp.com/BxgOPDg5NPcJKjIroVCoQF?mode=ems_share_t';
   
   const cities = ['All', 'Bangalore', 'Mumbai', 'Delhi', 'Hyderabad'];
 
@@ -12,12 +13,12 @@ function CommunityPage({ setCurrentPage }) {
       <section style={{
         background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
         color: 'white',
-        padding: '6rem 2rem 4rem',
+        padding: '6rem 2rem 5rem',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Decorative Background */}
+        {/* Decorative Circles */}
         <div style={{
           position: 'absolute',
           top: '-80px',
@@ -46,10 +47,11 @@ function CommunityPage({ setCurrentPage }) {
             padding: '0.5rem 1.5rem',
             borderRadius: '50px',
             marginBottom: '1.5rem',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            animation: 'fadeInDown 0.6s ease-out'
           }}>
             <span style={{ fontSize: '0.95rem', fontWeight: '600', letterSpacing: '1px' }}>
-              🚀 30,000+ ACTIVE MEMBERS
+              🌍 STUDENT FOUNDER COMMUNITY
             </span>
           </div>
 
@@ -58,7 +60,8 @@ function CommunityPage({ setCurrentPage }) {
             fontWeight: 'bold', 
             marginBottom: '1.5rem',
             lineHeight: 1.2,
-            letterSpacing: '-1px'
+            letterSpacing: '-1px',
+            animation: 'fadeInUp 0.7s ease-out 0.1s both'
           }}>
             Join the <span style={{ 
               color: '#5DD9C1',
@@ -74,30 +77,109 @@ function CommunityPage({ setCurrentPage }) {
             opacity: 0.95,
             lineHeight: 1.7,
             maxWidth: '750px',
-            margin: '0 auto 2rem'
+            margin: '0 auto 2.5rem',
+            animation: 'fadeInUp 0.7s ease-out 0.2s both'
           }}>
-            Connect with 30,000+ founders, mentors, and investors across 4 cities building the future of Indian startups
+            Connect with student founders, mentors, and investors across multiple cities building the future of Indian startups
           </p>
+
+          {/* Call-to-Action Buttons */}
+          <div style={{
+            display: 'flex',
+            gap: '1.5rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginBottom: '3rem',
+            animation: 'fadeInUp 0.7s ease-out 0.3s both'
+          }}>
+            {/* WhatsApp Button - Primary */}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                background: 'white',
+                color: '#2C5F3F',
+                padding: '1.25rem 2.5rem',
+                borderRadius: '50px',
+                fontWeight: '700',
+                fontSize: '1.1rem',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                boxShadow: '0 12px 35px rgba(0, 0, 0, 0.25)',
+                textDecoration: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.25)';
+              }}
+            >
+              <MessageCircleMore size={22} style={{ color: '#25D366' }} />
+              Join via WhatsApp
+              <Zap size={20} />
+            </a>
+
+            {/* Secondary CTA Button */}
+            <button
+              onClick={() => setCurrentPage('login')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                background: 'rgba(255, 255, 255, 0.15)',
+                color: 'white',
+                padding: '1.25rem 2.5rem',
+                borderRadius: '50px',
+                fontWeight: '700',
+                fontSize: '1.1rem',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                backdropFilter: 'blur(10px)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(93, 217, 193, 0.2)';
+                e.currentTarget.style.borderColor = 'rgba(93, 217, 193, 0.5)';
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              Apply to Accelerator
+              <ArrowRight size={20} />
+            </button>
+          </div>
 
           {/* Stats Grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
             gap: '2rem',
-            marginTop: '3rem',
             maxWidth: '800px',
-            margin: '3rem auto 0'
+            margin: '0 auto',
+            animation: 'fadeInUp 0.7s ease-out 0.4s both'
           }}>
             {[
-              { icon: <Users size={24} />, value: '30,000+', label: 'Members' },
-              { icon: <Calendar size={24} />, value: '700+', label: 'Events/Year' },
+              { icon: <Users size={24} />, value: '5K+', label: 'Members' },
+              { icon: <Rocket size={24} />, value: '50+', label: 'Startups' },
               { icon: <MapPin size={24} />, value: '4', label: 'Cities' },
-              { icon: <Award size={24} />, value: '1000+', label: 'Success Stories' },
+              { icon: <TrendingUp size={24} />, value: '100+', label: 'Success Stories' },
             ].map((stat, i) => (
               <div key={i} style={{ textAlign: 'center' }}>
                 <div style={{ 
                   display: 'inline-flex',
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.75rem',
                   color: '#5DD9C1'
                 }}>
                   {stat.icon}
@@ -108,6 +190,30 @@ function CommunityPage({ setCurrentPage }) {
             ))}
           </div>
         </div>
+
+        <style>{`
+          @keyframes fadeInDown {
+            from {
+              opacity: 0;
+              transform: translateY(-20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
       </section>
 
       {/* Community Benefits */}
@@ -130,7 +236,7 @@ function CommunityPage({ setCurrentPage }) {
             maxWidth: '700px',
             margin: '0 auto 4rem'
           }}>
-            More than a network—it&apos;s your startup&apos;s secret weapon
+            More than a network—it's your startup's secret weapon
           </p>
 
           <div style={{
@@ -224,328 +330,8 @@ function CommunityPage({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* City Filter */}
-      <section style={{
-        padding: '2rem 2rem',
-        background: 'white',
-        borderTop: '1px solid rgba(93, 217, 193, 0.15)',
-        position: 'sticky',
-        top: '70px',
-        zIndex: 10,
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <MapPin size={20} style={{ color: '#3D7551' }} />
-              <span style={{ 
-                fontWeight: '600', 
-                color: '#2C5F3F',
-                fontSize: '1.05rem'
-              }}>
-                Browse Events in:
-              </span>
-            </div>
-            {cities.map((city, i) => (
-              <button
-                key={i}
-                onClick={() => setSelectedCity(city)}
-                style={{
-                  padding: '0.65rem 1.5rem',
-                  borderRadius: '50px',
-                  border: selectedCity === city 
-                    ? '2px solid #3D7551' 
-                    : '2px solid rgba(93, 217, 193, 0.3)',
-                  background: selectedCity === city 
-                    ? 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)' 
-                    : 'white',
-                  color: selectedCity === city ? 'white' : '#5A8F6A',
-                  cursor: 'pointer',
-                  fontWeight: '600',
-                  fontSize: '0.95rem',
-                  transition: 'all 0.3s',
-                  boxShadow: selectedCity === city 
-                    ? '0 4px 15px rgba(61, 117, 81, 0.3)' 
-                    : 'none'
-                }}
-                onMouseOver={(e) => {
-                  if (selectedCity !== city) {
-                    e.currentTarget.style.background = 'rgba(93, 217, 193, 0.1)';
-                    e.currentTarget.style.borderColor = '#5DD9C1';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  if (selectedCity !== city) {
-                    e.currentTarget.style.background = 'white';
-                    e.currentTarget.style.borderColor = 'rgba(93, 217, 193, 0.3)';
-                  }
-                }}
-              >
-                {city}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Events & Community Grid */}
-      <section style={{ padding: '4rem 2rem 5rem' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ 
-            display: 'grid',
-            gap: '2.5rem',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))'
-          }}>
-            {/* Upcoming Events Card */}
-            <div style={{
-              background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
-              color: 'white',
-              padding: '3rem',
-              borderRadius: '25px',
-              boxShadow: '0 15px 40px rgba(61, 117, 81, 0.3)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              {/* Decorative Circle */}
-              <div style={{
-                position: 'absolute',
-                top: '-50px',
-                right: '-50px',
-                width: '200px',
-                height: '200px',
-                background: 'rgba(93, 217, 193, 0.15)',
-                borderRadius: '50%',
-                filter: 'blur(50px)'
-              }}></div>
-
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <div style={{
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: '15px',
-                  padding: '1rem',
-                  display: 'inline-flex',
-                  marginBottom: '1.5rem'
-                }}>
-                  <Calendar size={40} />
-                </div>
-
-                <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                  Upcoming Events
-                </h2>
-                
-                <p style={{ fontSize: '1.05rem', opacity: 0.9, marginBottom: '2rem', lineHeight: 1.6 }}>
-                  Join our weekly events and connect with founders in your city
-                </p>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {[
-                    { date: 'Nov 15', title: 'Founder Meetup', city: 'Delhi', attendees: '150+', type: '🤝 Networking' },
-                    { date: 'Nov 22', title: 'Pitch Practice', city: 'Mumbai', attendees: '80+', type: '🎤 Workshop' },
-                    { date: 'Dec 5', title: 'Demo Day', city: 'Bangalore', attendees: '200+', type: '🚀 Showcase' },
-                  ].map((event, i) => (
-                    <div key={i} style={{ 
-                      background: 'rgba(255, 255, 255, 0.12)', 
-                      backdropFilter: 'blur(10px)', 
-                      padding: '1.5rem', 
-                      borderRadius: '15px',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
-                      transition: 'all 0.3s'
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)';
-                      e.currentTarget.style.transform = 'translateX(5px)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                      e.currentTarget.style.transform = 'translateX(0)';
-                    }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: '0.85rem', opacity: 0.8, marginBottom: '0.25rem' }}>
-                            {event.type}
-                          </div>
-                          <div style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.25rem' }}>
-                            {event.title}
-                          </div>
-                          <div style={{ fontSize: '0.9rem', opacity: 0.85, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <Clock size={14} />
-                            {event.date} · {event.city}
-                          </div>
-                        </div>
-                        <div style={{ 
-                          fontSize: '0.85rem', 
-                          background: 'rgba(93, 217, 193, 0.3)',
-                          padding: '0.4rem 1rem', 
-                          borderRadius: '50px',
-                          fontWeight: '700',
-                          whiteSpace: 'nowrap'
-                        }}>
-                          {event.attendees}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <button style={{
-                  width: '100%',
-                  background: 'white',
-                  color: '#2C5F3F',
-                  padding: '1rem 0',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1rem',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
-                  marginTop: '1.5rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
-                }}
-                >
-                  View All Events <Calendar size={18} />
-                </button>
-              </div>
-            </div>
-
-            {/* Community Perks Card */}
-            <div style={{
-              background: 'white',
-              padding: '3rem',
-              borderRadius: '25px',
-              boxShadow: '0 8px 30px rgba(61, 117, 81, 0.1)',
-              border: '1px solid rgba(93, 217, 193, 0.1)'
-            }}>
-              <div style={{
-                background: 'linear-gradient(135deg, #E8F5E9 0%, #D8E6D2 100%)',
-                borderRadius: '15px',
-                padding: '1rem',
-                display: 'inline-flex',
-                marginBottom: '1.5rem'
-              }}>
-                <Rocket size={40} style={{ color: '#3D7551' }} />
-              </div>
-
-              <h2 style={{ 
-                fontSize: '2rem', 
-                fontWeight: 'bold', 
-                marginBottom: '1rem',
-                color: '#2C5F3F'
-              }}>
-                Member Perks
-              </h2>
-              
-              <p style={{ 
-                fontSize: '1.05rem', 
-                color: '#5A8F6A',
-                marginBottom: '2rem',
-                lineHeight: 1.6
-              }}>
-                Everything you need to accelerate your startup journey
-              </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {[
-                  { icon: <Users size={20} />, text: 'Weekly founder meetups & workshops' },
-                  { icon: <TrendingUp size={20} />, text: 'Exclusive investor sessions & pitch practice' },
-                  { icon: <MessageCircle size={20} />, text: 'Peer mentorship circles (5-8 founders)' },
-                  { icon: <Globe size={20} />, text: 'Resource library (templates & playbooks)' },
-                  { icon: <Briefcase size={20} />, text: 'Job board & hiring support' },
-                  { icon: <Heart size={20} />, text: 'Lifetime network access' }
-                ].map((benefit, i) => (
-                  <div key={i} style={{ 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    padding: '1rem',
-                    background: 'rgba(93, 217, 193, 0.05)',
-                    borderRadius: '12px',
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(93, 217, 193, 0.12)';
-                    e.currentTarget.style.paddingLeft = '1.5rem';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'rgba(93, 217, 193, 0.05)';
-                    e.currentTarget.style.paddingLeft = '1rem';
-                  }}
-                  >
-                    <div style={{
-                      background: 'white',
-                      borderRadius: '10px',
-                      padding: '8px',
-                      marginRight: '1rem',
-                      color: '#3D7551',
-                      display: 'flex',
-                      alignItems: 'center',
-                      boxShadow: '0 2px 8px rgba(61, 117, 81, 0.1)'
-                    }}>
-                      {benefit.icon}
-                    </div>
-                    <span style={{ color: '#2C5F3F', fontSize: '1.05rem', fontWeight: '500' }}>
-                      {benefit.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <button 
-                onClick={() => setCurrentPage('login')}
-                style={{
-                  width: '100%',
-                  background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
-                  color: 'white',
-                  padding: '1rem 0',
-                  borderRadius: '12px',
-                  fontWeight: '700',
-                  fontSize: '1rem',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  boxShadow: '0 4px 15px rgba(61, 117, 81, 0.3)',
-                  marginTop: '2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(61, 117, 81, 0.4)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(61, 117, 81, 0.3)';
-                }}
-              >
-                Join Community <Zap size={18} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonial Section */}
-      <section style={{ padding: '4rem 2rem', background: 'white' }}>
+      <section style={{ padding: '4rem 2rem', background: '#F5F9F3' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
             fontSize: '3rem',
@@ -565,7 +351,7 @@ function CommunityPage({ setCurrentPage }) {
           
           <div style={{ color: '#5A8F6A', fontSize: '1.1rem' }}>
             <div style={{ fontWeight: 'bold', color: '#2C5F3F', marginBottom: '0.25rem' }}>Priya Sharma</div>
-            <div>Founder, TechFlow · Raised ₹5Cr Seed</div>
+            <div>Founder, TechFlow</div>
           </div>
         </div>
       </section>
@@ -593,34 +379,79 @@ function CommunityPage({ setCurrentPage }) {
             marginBottom: '2.5rem',
             lineHeight: 1.7
           }}>
-            Join 30,000+ founders building the future together. Apply to our accelerator and get instant community access.
+            Join thousands of student founders building the future together. Get community access instantly.
           </p>
 
-          <button 
-            onClick={() => setCurrentPage('login')}
-            style={{
-            background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
-            color: 'white',
-            padding: '1.25rem 3.5rem',
-            borderRadius: '50px',
-            fontSize: '1.25rem',
-            fontWeight: '700',
-            border: 'none',
-            cursor: 'pointer',
-            transition: 'all 0.3s',
-            boxShadow: '0 10px 30px rgba(61, 117, 81, 0.4)'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 15px 40px rgba(61, 117, 81, 0.5)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(61, 117, 81, 0.4)';
-          }}
-          >
-            Get Started Today
-          </button>
+          <div style={{
+            display: 'flex',
+            gap: '1.5rem',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}>
+            {/* WhatsApp CTA */}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                background: 'linear-gradient(135deg, #3D7551 0%, #2C5F3F 100%)',
+                color: 'white',
+                padding: '1.25rem 3rem',
+                borderRadius: '50px',
+                fontSize: '1.15rem',
+                fontWeight: '700',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                boxShadow: '0 10px 30px rgba(61, 117, 81, 0.4)',
+                textDecoration: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 15px 40px rgba(61, 117, 81, 0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(61, 117, 81, 0.4)';
+              }}
+            >
+              <MessageCircleMore size={22} style={{ color: '#25D366' }} />
+              Join on WhatsApp Now
+            </a>
+
+            {/* Secondary CTA */}
+            <button
+              onClick={() => setCurrentPage('login')}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                background: 'white',
+                color: '#2C5F3F',
+                padding: '1.25rem 3rem',
+                borderRadius: '50px',
+                fontSize: '1.15rem',
+                fontWeight: '700',
+                border: '2px solid #2C5F3F',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#E8F5E9';
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'white';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              Apply to Program
+              <ArrowRight size={20} />
+            </button>
+          </div>
 
           <p style={{ marginTop: '1.5rem', fontSize: '0.95rem', color: '#5A8F6A' }}>
             🎉 Free for all accelerator participants
