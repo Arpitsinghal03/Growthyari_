@@ -1,11 +1,11 @@
 import React from 'react';
-import { ChevronRight, TrendingUp, Users, Target, Check, X, Star, Award, Zap, ArrowRight, Calendar, MessageCircle, Briefcase } from 'lucide-react';
-import { weeklyProgram, testimonials } from '../components/common/data';
+import { ChevronRight, TrendingUp, Users, Target, Check, X, Star, Award, Calendar, MessageCircle, Lightbulb, Rocket, ArrowRight, Coffee, BookOpen } from 'lucide-react';
+import { testimonials } from '../components/common/data';
 
 function HomePage({ setCurrentPage }) {
   return (
     <div style={{ overflow: 'hidden' }}>
-      {/* Hero Section - Keep as is */}
+      {/* Hero Section - Same as before */}
       <section style={{
         position: 'relative',
         minHeight: '100vh',
@@ -46,23 +46,34 @@ function HomePage({ setCurrentPage }) {
               marginBottom: '1.5rem',
               letterSpacing: '-2px'
             }}>
-              Transform Your<br />
-              Startup in{' '}
+              India's Most Selective{' '}
               <span style={{
                 background: 'linear-gradient(135deg, #5DD9C1, #3D7551)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
-              }}>8 Weeks</span>
+              }}>Student Founder</span> Ecosystem
             </h1>
 
             <p style={{
               fontSize: '1.25rem',
               color: '#5A8F6A',
               lineHeight: 1.7,
-              marginBottom: '3rem',
+              marginBottom: '1.5rem',
               maxWidth: '540px'
             }}>
-              India&apos;s most selective accelerator for founders building category-defining companies. Get funded, mentored, and connected.
+              An accelerator that compresses two years of clarity, capital, and connection into just eight powerful weeks.
+            </p>
+
+            <p style={{
+              fontSize: '1.15rem',
+              color: '#3D7551',
+              lineHeight: 1.7,
+              marginBottom: '3rem',
+              maxWidth: '540px',
+              fontStyle: 'italic',
+              fontWeight: '500'
+            }}>
+              Because founders & students don't rise alone — they rise with alignment, mentorship, and a trusted circle.
             </p>
 
             <div style={{
@@ -125,36 +136,9 @@ function HomePage({ setCurrentPage }) {
                 View Program
               </button>
             </div>
-
-            <div style={{
-              display: 'flex',
-              gap: '2rem',
-              marginTop: '3rem',
-              paddingTop: '2rem',
-              borderTop: '1px solid rgba(93, 217, 193, 0.2)'
-            }}>
-              {[
-                { value: '30K+', label: 'Members' },
-                { value: '₹500Cr+', label: 'Raised' },
-                { value: '100+', label: 'Startups' }
-              ].map((stat, i) => (
-                <div key={i}>
-                  <div style={{
-                    fontSize: '1.75rem',
-                    fontWeight: '700',
-                    color: '#2C5F3F',
-                    marginBottom: '0.25rem'
-                  }}>{stat.value}</div>
-                  <div style={{
-                    fontSize: '0.875rem',
-                    color: '#5A8F6A',
-                    fontWeight: '500'
-                  }}>{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
 
+          {/* Simplified Graph */}
           <div style={{
             position: 'relative',
             height: '500px',
@@ -245,34 +229,34 @@ function HomePage({ setCurrentPage }) {
                 ))}
               </svg>
 
-              {[
-                { icon: '💰', value: '₹50Cr', top: '15%', left: '-8%' },
-                { icon: '📈', value: '3x ROI', top: '20%', right: '-8%' },
-                { icon: '🚀', value: 'Week 8', bottom: '15%', right: '-8%' }
-              ].map((card, i) => (
-                <div key={i} style={{
-                  position: 'absolute',
-                  ...Object.fromEntries(Object.entries(card).filter(([key]) => ['top', 'bottom', 'left', 'right'].includes(key))),
-                  background: 'white',
-                  padding: '0.75rem 1.25rem',
-                  borderRadius: '12px',
-                  boxShadow: '0 8px 25px rgba(61, 117, 81, 0.15)',
-                  border: '1px solid rgba(93, 217, 193, 0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  opacity: 0,
-                  animation: `fadeIn 0.6s ease-out ${1.5 + i * 0.2}s forwards`,
-                  whiteSpace: 'nowrap'
+              <div style={{
+                position: 'absolute',
+                top: '15%',
+                right: '10%',
+                background: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '12px',
+                boxShadow: '0 8px 25px rgba(61, 117, 81, 0.15)',
+                border: '1px solid rgba(93, 217, 193, 0.2)',
+                opacity: 0,
+                animation: 'fadeIn 0.6s ease-out 1.5s forwards'
+              }}>
+                <div style={{
+                  fontSize: '2rem',
+                  fontWeight: '800',
+                  color: '#2C5F3F',
+                  marginBottom: '0.25rem'
                 }}>
-                  <span style={{ fontSize: '1.25rem' }}>{card.icon}</span>
-                  <span style={{
-                    fontSize: '0.95rem',
-                    fontWeight: '700',
-                    color: '#2C5F3F'
-                  }}>{card.value}</span>
+                  3x
                 </div>
-              ))}
+                <div style={{
+                  fontSize: '0.9rem',
+                  color: '#5A8F6A',
+                  fontWeight: '600'
+                }}>
+                  ROI
+                </div>
+              </div>
             </div>
 
             {[
@@ -322,8 +306,98 @@ function HomePage({ setCurrentPage }) {
         `}</style>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Community Activities Section - NEW */}
       <section style={{ padding: '6rem 2rem', background: 'white' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <h2 style={{ 
+              fontSize: '2.5rem', 
+              fontWeight: 'bold', 
+              color: '#2C5F3F',
+              marginBottom: '1rem'
+            }}>
+              Beyond the <span style={{ color: '#5DD9C1' }}>Classroom</span>
+            </h2>
+            <p style={{ fontSize: '1.15rem', color: '#5A8F6A', maxWidth: '600px', margin: '0 auto' }}>
+              Weekly workshops, founder meetups, and networking events designed for student entrepreneurs
+            </p>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '2rem'
+          }}>
+            {[
+              {
+                icon: <Coffee size={32} />,
+                title: 'Founder Friday',
+                description: 'Weekly casual meetups every Friday. Share challenges, celebrate wins, and build friendships over coffee.',
+                frequency: 'Every Friday, 6 PM'
+              },
+              {
+                icon: <BookOpen size={32} />,
+                title: 'Skill Workshops',
+                description: 'Hands-on workshops on pitching, fundraising, product development, and growth marketing.',
+                frequency: 'Twice a week'
+              },
+              {
+                icon: <MessageCircle size={32} />,
+                title: 'Mentor Office Hours',
+                description: 'Get 1-on-1 time with experienced founders and industry experts. Ask anything, get honest feedback.',
+                frequency: 'Daily slots available'
+              },
+              {
+                icon: <Lightbulb size={32} />,
+                title: 'Idea Jam Sessions',
+                description: 'Brainstorm with peers, validate assumptions, and refine your startup idea in collaborative sessions.',
+                frequency: 'Weekly Thursdays'
+              }
+            ].map((activity, i) => (
+              <div key={i} style={{
+                background: 'linear-gradient(135deg, #F5F9F3, #E8F5E9)',
+                padding: '2.5rem',
+                borderRadius: '20px',
+                transition: 'all 0.3s',
+                border: '1px solid rgba(93, 217, 193, 0.2)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(61, 117, 81, 0.15)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+              >
+                <div style={{ color: '#3D7551', marginBottom: '1.5rem' }}>{activity.icon}</div>
+                <h3 style={{ fontSize: '1.4rem', fontWeight: 'bold', marginBottom: '1rem', color: '#2C5F3F' }}>
+                  {activity.title}
+                </h3>
+                <p style={{ color: '#5A8F6A', lineHeight: 1.7, marginBottom: '1.5rem', fontSize: '1rem' }}>
+                  {activity.description}
+                </p>
+                <div style={{
+                  display: 'inline-block',
+                  background: 'rgba(93, 217, 193, 0.2)',
+                  color: '#2C5F3F',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '50px',
+                  fontSize: '0.85rem',
+                  fontWeight: '600'
+                }}>
+                  {activity.frequency}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section style={{ padding: '6rem 2rem', background: '#F5F9F3' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <h2 style={{ 
@@ -335,7 +409,7 @@ function HomePage({ setCurrentPage }) {
               Why <span style={{ color: '#5DD9C1' }}>GrowthYari</span>?
             </h2>
             <p style={{ fontSize: '1.15rem', color: '#5A8F6A', maxWidth: '600px', margin: '0 auto' }}>
-              We don&apos;t just offer advice. We provide execution-focused support that drives real results.
+              We don't just offer advice. We provide execution-focused support that drives real results.
             </p>
           </div>
 
@@ -349,13 +423,13 @@ function HomePage({ setCurrentPage }) {
                 icon: <Users size={32} />,
                 title: 'Hand-Picked Community',
                 others: 'Generic online groups',
-                growthyari: '30K+ vetted founders & mentors'
+                growthyari: 'Vetted student founders & mentors'
               },
               {
                 icon: <Target size={32} />,
                 title: 'Real Investor Intros',
                 others: 'Cold pitching practice',
-                growthyari: 'Warm introductions to 10+ VCs'
+                growthyari: 'Warm introductions to active VCs'
               },
               {
                 icon: <Award size={32} />,
@@ -365,7 +439,7 @@ function HomePage({ setCurrentPage }) {
               }
             ].map((item, i) => (
               <div key={i} style={{
-                background: 'linear-gradient(135deg, #F5F9F3, #E8F5E9)',
+                background: 'white',
                 padding: '2.5rem',
                 borderRadius: '20px',
                 transition: 'all 0.3s',
@@ -400,8 +474,7 @@ function HomePage({ setCurrentPage }) {
         </div>
       </section>
 
-      
-      {/* Testimonials */}
+      {/* Testimonials with 4.5 stars */}
       <section style={{ padding: '6rem 2rem', background: 'white' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
@@ -409,7 +482,7 @@ function HomePage({ setCurrentPage }) {
               Success Stories
             </h2>
             <p style={{ fontSize: '1.15rem', color: '#5A8F6A', maxWidth: '600px', margin: '0 auto' }}>
-              Hear from founders who transformed their startups through GrowthYari
+              Hear from student founders who transformed their startups through GrowthYari
             </p>
           </div>
 
@@ -435,10 +508,30 @@ function HomePage({ setCurrentPage }) {
                 e.currentTarget.style.boxShadow = 'none';
               }}
               >
+                {/* 4.5 stars for second testimonial, 5 for others */}
                 <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.5rem' }}>
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} size={20} style={{ fill: '#FFD700', color: '#FFD700' }} />
+                    <Star 
+                      key={j} 
+                      size={20} 
+                      style={{ 
+                        fill: (i === 1 && j === 4) ? 'none' : '#FFD700',
+                        color: '#FFD700',
+                        clipPath: (i === 1 && j === 4) ? 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' : 'none'
+                      }} 
+                    />
                   ))}
+                  {i === 1 && (
+                    <Star 
+                      size={20} 
+                      style={{ 
+                        fill: '#FFD700',
+                        color: '#FFD700',
+                        clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)',
+                        marginLeft: '-20px'
+                      }} 
+                    />
+                  )}
                 </div>
                 <p style={{
                   fontSize: '1.05rem',
@@ -447,7 +540,7 @@ function HomePage({ setCurrentPage }) {
                   marginBottom: '1.5rem',
                   fontStyle: 'italic'
                 }}>
-                  &quot;{test.text}&quot;
+                  "{test.text}"
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <div style={{
@@ -487,7 +580,7 @@ function HomePage({ setCurrentPage }) {
             Ready to Build Something Amazing?
           </h2>
           <p style={{ fontSize: '1.25rem', marginBottom: '2.5rem', opacity: 0.95, lineHeight: 1.7 }}>
-            Join the next cohort of ambitious founders transforming their startups. Limited to 20 founders per batch.
+            Join the next cohort of ambitious student founders transforming their startups. Limited spots available.
           </p>
           <button 
             onClick={() => setCurrentPage('login')}
@@ -519,7 +612,7 @@ function HomePage({ setCurrentPage }) {
             <ArrowRight size={24} />
           </button>
           <p style={{ marginTop: '1.5rem', fontSize: '0.95rem', opacity: 0.85 }}>
-            🎯 Applications close in 7 days
+            🎯 Applications reviewed on a rolling basis
           </p>
         </div>
       </section>
